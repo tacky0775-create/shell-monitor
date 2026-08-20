@@ -26,5 +26,5 @@ cronによる定期実行を想定しています。
 ## 実行方法
 
 ```bash
-chmod +x monitor.sh
+cd monitor
 ./monitor.sh
