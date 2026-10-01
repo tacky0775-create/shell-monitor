@@ -76,7 +76,7 @@ WARNING: MEMORY usage is high.
 WARNING: DISK usage is high.
 
 **monitor.sh**
-```text
+```bash
 #!/bin/bash
 
 LOGFILE="/opt/monitor/logs/monitor.log"
@@ -103,7 +103,7 @@ fi
 ## 処理内容
 
 **CPU使用率**
-```text
+```bash
 top -bn1 | grep "Cpu(s)" | awk '{print int(100-$8)}'
 ```
 
@@ -113,13 +113,13 @@ CPU使用率 = 100 - CPU idle率
 ```
 
 **メモリ使用率**
-```
+```bash
 free | awk '/Mem:/ {print int($3/$2*100)}'
 ```
 freeコマンドからメモリの使用量と総容量を取得し、使用率を算出しています。
 
 **ディスク使用率**
-```
+```bash
 df / | awk 'NR==2 {gsub("%","",$5); print $5}'
 ```
 ルートファイルシステム / のディスク使用率を取得しています。
@@ -127,7 +127,7 @@ df / | awk 'NR==2 {gsub("%","",$5); print $5}'
 ## 定期実行
 
 cronを使用して5分間隔で監視スクリプトを実行しています。
-```
+```bash
 */5 * * * * /opt/monitor/monitor.sh
 ```
 これにより、サーバーのリソース状況を定期的に取得します。
@@ -385,9 +385,9 @@ shell-monitor/
 ```
 monitor.logはGitHubへコミットしないよう、.gitignoreで除外しています。
 
-## GitHub
+## まとめ
 
-このプロジェクトでは、Shell Scriptの作成からAWS EC2へのデプロイ、CloudWatch・SNSを利用した監視・通知までを実践しています。
+本プロジェクトでは、Shell ScriptによるLinuxサーバー監視から、AWS CloudWatch・SNSを利用したアラート通知まで、一連の監視・通知環境を構築しました。
 
-ソースコードと設定内容はGitHubで管理しています。
+Linuxコマンドによるリソース監視、cronによる定期実行、CloudWatch Logsによるログ収集、Metric Filter・CloudWatch Alarmによる異常検知、SNSによるメール通知までを実際に構築・検証しています。
 
