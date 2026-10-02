@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LOGFILE="/opt/monitor/logs/monitor.log"
-CPU=$(top -bn1 | grep "Cpu(s)" | awk '{print int($2)}')
+CPU=$(top -bn1 | grep "Cpu(s)" | awk '{print int(100-$8)}')
 MEMORY=$(free | awk '/Mem:/ {print int($3/$2*100)}')
 DISK=$(df / | awk 'NR==2 {gsub("%","",$5); print $5}')
 DATE=$(date "+%Y-%m-%d %H:%M:%S")
